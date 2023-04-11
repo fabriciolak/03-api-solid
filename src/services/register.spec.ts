@@ -2,7 +2,7 @@ import { it, describe } from 'vitest'
 import { RegisterUserCase } from './register'
 import { compare } from 'bcryptjs'
 
-describe('Register use case', () => {
+describe('Register service', () => {
   it('Must be hash password upon user register', async () => {
     const registerUseCase = new RegisterUserCase({
       async findByEmail(_) {
