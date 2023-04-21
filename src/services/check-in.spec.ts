@@ -57,6 +57,6 @@ describe('Get user profile service', () => {
       userId: 'user-01',
     })
 
-    expect(checkIn.id).toBe(expect.any(String))
+    expect(checkIn.id).toStrictEqual(expect.any(String))
   })
 })
