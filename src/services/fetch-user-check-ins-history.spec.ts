@@ -1,5 +1,5 @@
 import { InMemoryCheckInsRepository } from '@/repositories/in-memory/in-memory-check-ins-repository'
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { FetchUserCheckInsHistoryService } from './fetch-user-check-ins-history'
 
 let checkInsRepository: InMemoryCheckInsRepository
@@ -11,10 +11,6 @@ describe('Fetch User check-in history use case ', () => {
     sut = new FetchUserCheckInsHistoryService(checkInsRepository)
   })
 
-  afterEach(() => {
-    vi.useRealTimers()
-  })
-
   it('Should be able to to fetch check-in history', async () => {
     await checkInsRepository.create({
       gym_id: '01',
@@ -23,7 +19,7 @@ describe('Fetch User check-in history use case ', () => {
 
     await checkInsRepository.create({
       gym_id: '02',
-      user_id: 'user-02',
+      user_id: 'user-01',
     })
 
     const { checkIns } = await sut.execute({
@@ -39,10 +35,10 @@ describe('Fetch User check-in history use case ', () => {
   })
 
   it('Should be able to to fetch paginated user check-ins history', async () => {
-    for (let i = 1; i < 22; i++) {
+    for (let i = 1; i <= 22; i++) {
       await checkInsRepository.create({
         gym_id: `gym-${i}`,
-        user_id: `user-${i}`,
+        user_id: `user-01`,
       })
     }
     const { checkIns } = await sut.execute({
