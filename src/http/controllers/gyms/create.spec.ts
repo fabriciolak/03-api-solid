@@ -11,19 +11,20 @@ afterAll(async () => {
   await app.close()
 })
 
-describe('Profile (E2E)', () => {
-  it('Should be able to get user profile', async () => {
+describe('Create Gym (E2E)', () => {
+  it('Should be able to create a gym', async () => {
     const { token } = await createAndAuthenticateUser(app)
-    const profileResponse = await request(app.server)
-      .get('/me')
+    const createdGym = await request(app.server)
+      .post('/gyms')
       .set('Authorization', `Bearer ${token}`)
-      .send()
+      .send({
+        title: 'Gym',
+        description: 'some',
+        phone: '9999-9999',
+        latitude: -12.0629226,
+        longitude: -43.5510806,
+      })
 
-    expect(profileResponse.statusCode).toEqual(200)
-    expect(profileResponse.body.user).toEqual(
-      expect.objectContaining({
-        email: 'johndoe@does.com',
-      }),
-    )
+    expect(createdGym.statusCode).toEqual(201)
   })
 })
