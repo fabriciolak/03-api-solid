@@ -2,9 +2,10 @@ import '@fastify/jwt'
 
 declare module '@fastify/jwt' {
   export interface FastifyJWT {
-    // payload: { id: number }
+    // payload: {  }
     user: {
       sub: string
+      role: 'ADMIN' | 'MEMBER'
     }
   }
 }
